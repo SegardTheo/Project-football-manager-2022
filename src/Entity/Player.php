@@ -18,6 +18,12 @@ class Player
     #[ORM\Column(type: 'string', length: 50)]
     private $name;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $description;
+
+    #[ORM\OneToOne(targetEntity: Stats::class, cascade: ['persist', 'remove'])]
+    private $Stats;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -31,6 +37,30 @@ class Player
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getStats(): ?Stats
+    {
+        return $this->Stats;
+    }
+
+    public function setStats(?Stats $Stats): self
+    {
+        $this->Stats = $Stats;
 
         return $this;
     }
