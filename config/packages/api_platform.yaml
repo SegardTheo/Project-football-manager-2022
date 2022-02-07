@@ -1,4 +1,5 @@
 api_platform:
+    show_webby : false
     # The title of the API.
     title: 'API title'
 

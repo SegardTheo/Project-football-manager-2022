@@ -5,24 +5,66 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\Controller\TESTTEST;
 
-#[ORM\Entity(repositoryClass: PlayerRepository::class)]
-#[ApiResource]
+/**
+ * Class Player
+ * @package App\Entity
+ *
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read:player"}},
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={"get", "put", "delete"}
+ * )
+ * @ORM\Entity(repositoryClass="App\Repository\PlayerRepository")
+ * @ORM\Table(name="player")
+ */
 class Player
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     * @Groups({"read:player"})
+     */
     private $id;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    /**
+     * @ORM\Column(type="string", length= 50)
+     * @Groups({"read:player", "write:player"})
+     */
     private $name;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    /**
+     * @ORM\Column(type="string", length= 255, nullable= true)
+     * @Groups({"read:player", "write:player"})
+     */
     private $description;
 
-    #[ORM\OneToOne(targetEntity: Stats::class, cascade: ['persist', 'remove'])]
-    private $Stats;
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups({"read:player", "write:player"})
+     */
+    private $strength;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups({"read:player", "write:player"})
+     */
+    private $physicalCondition;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups({"read:player", "write:player"})
+     */
+    private $defense;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="players", cascade={"persist"})
+     * @Groups({"read:player", "write:player"})
+     */
+    private $team;
 
     public function getId(): ?int
     {
@@ -53,14 +95,50 @@ class Player
         return $this;
     }
 
-    public function getStats(): ?Stats
+    public function getStrength(): ?int
     {
-        return $this->Stats;
+        return $this->strength;
     }
 
-    public function setStats(?Stats $Stats): self
+    public function setStrength(int $strength): self
     {
-        $this->Stats = $Stats;
+        $this->strength = $strength;
+
+        return $this;
+    }
+
+    public function getPhysicalCondition(): ?int
+    {
+        return $this->physicalCondition;
+    }
+
+    public function setPhysicalCondition(int $physicalCondition): self
+    {
+        $this->physicalCondition = $physicalCondition;
+
+        return $this;
+    }
+
+    public function getDefense(): ?int
+    {
+        return $this->defense;
+    }
+
+    public function setDefense(int $defense): self
+    {
+        $this->defense = $defense;
+
+        return $this;
+    }
+
+    public function getTeam(): ?Team
+    {
+        return $this->team;
+    }
+
+    public function setTeam(?Team $team): self
+    {
+        $this->team = $team;
 
         return $this;
     }
