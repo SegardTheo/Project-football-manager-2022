@@ -6,17 +6,24 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use App\Controller\TESTTEST;
+use App\Controller\RandomMatch;
+use App\Controller\StartMatch;
 
 /**
  * Class Player
  * @package App\Entity
  *
- * @ApiResource(
- *     normalizationContext={"groups"={"read:player"}},
- *     collectionOperations={"get", "post"},
- *     itemOperations={"get", "put", "delete"}
- * )
+    @ApiResource(
+        normalizationContext={"groups"={"read:player", "write:player"}},
+        collectionOperations={"get", "post",
+            "get_random_match"={
+                "path"="/players/RandomMatch",
+                "method"="GET",
+                "controller"=App\Controller\RandomMatch::class
+            },
+        },
+        itemOperations={"get", "put", "delete"}
+    )
  * @ORM\Entity(repositoryClass="App\Repository\PlayerRepository")
  * @ORM\Table(name="player")
  */

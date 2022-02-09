@@ -32,7 +32,7 @@ class Team
 
     /**
      * @ORM\Column(type="string", length= 255)
-     * @Groups({"read:team", "write:team", "read:player"})
+     * @Groups({"read:team", "write:team", "read:player", "write:player"})
      */
     private $name;
 
