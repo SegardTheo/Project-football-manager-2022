@@ -7,7 +7,6 @@ use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Controller\RandomMatch;
-use App\Controller\StartMatch;
 
 /**
  * Class Player
