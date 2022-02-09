@@ -9,4 +9,6 @@ Technologies utilisé :
 
 Début projet :
 - Créer le vhost ==> donner le chemin jusqu'au dossier public
+- Créer la BDD via le script transmis dans le dossier zip du mail
+- Changer les identifiants de connexion à la BDD dans le fichier .env
 - composer install
